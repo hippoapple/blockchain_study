@@ -1,0 +1,24 @@
+geth 설치
+
+1. Home-brew 설치
+https://brew.sh/
+
+2.  ethereum 설치
+$ brew tap ethereum/ethereum
+$ brew install ethereum
+
+3. git 설치
+$ git
+
+4.ethereum 설치
+$ git clone https://github.com/ethereum/go-ethereum.git
+$ cd go-ethereum/
+$ git checkout refs/tags/v1.5.5
+$ make geth
+
+Version 체크
+$ ./build/bin/geth version
+
+5.user local에 복사
+$ sudo cp build/bin/geth /usr/local/bin/
+$ which geth
