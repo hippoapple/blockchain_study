@@ -1,0 +1,57 @@
+테스트 네트워크에서 geth 가동
+
+로컬 테스트넷에서 geth를 기동하기 위해서는 아래 두 가지가 필요
+# 데이터 디렉토리
+# genesis 파일
+
+$ mkdir ~/data_testnet
+$ cd ~/data_testnet/
+$ pwd
+/Users/jihwan/data_testnet
+
+
+
+genesis.json 파일
+
+{
+        "nonce":"0x0000000000000042",
+        "timestamp":"0x0",
+        "parentHash":"0000000000000000000000000000000000000000000000000000000000000000",
+        "extraData":"0x0",
+        "gasLimit":"0x80000000",
+        "difficulty":"0x4000",
+        "mixhash":"0x0000000000000000000000000000000000000000000000000000000000000000",
+        "coinbase":"0x3333333333333333333333333333333333333333",
+        "alloc":{}
+}
+
+geth 초기화
+$ geth --datadir /Users/jihwan/data_testnet init /Users/jihwan/data_testnet/genesis.json
+
+tree 설치
+$ brew install tree
+
+data_testnet tree로 보기
+$ tree data_testnet
+
+geth 실행
+$ geth --networkid 4649 --nodiscover --maxpeers 0 --datadir /Users/jihwan/data_testnet console 2>> /Users/jihwan/data_testnet/geth.log
+
+option 설명
+--networkid 4649
+0~3(예약된)을 제외한 네트워크 id를 지정
+
+--nodiscover
+다른 노드들이 해당 네트워크 id와 genesis파일에 붙지 않기 위해 설정
+
+--maxpeers 0
+생성자의 노드에 연결할 수 있는 노드의 수를 지정
+
+--datadir [데이터 디렉토리]
+데이터 디렉토리 지정
+
+console
+대화형 자바스크립트 콘솔을 기동
+
+2>> /Users/jihwan/data_testnet/geth.log
+로그 파일을 생성한다. 에러를 해당 경로에 저장  
