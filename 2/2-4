@@ -1,0 +1,88 @@
+# 테스트 네트워크에서 ether 송금
+
+EOA(Extenally Owned Account) 일반 사용자가 사용하는 계정
+
+> personal
+
+pass0으로 계좌 생성
+> personal.newAccount("pass0")
+
+> eth
+> eth.accounts
+
+pass1으로 계좌 생성
+> personal.newAccount("pass1")
+
+> eth.accounts[0]
+> eth.accounts[1]
+
+종료
+> exit
+
+geth 프로세스 동작하는지 여부 확인
+$ ps -eaf | grep geth
+
+geth 명령어를 통해 pass2 생성
+$ geth --datadir /Users/jihwan/data_testnet account new
+pass2
+
+geth 명령어로 account 확인
+$ geth --datadir /Users/jihwan/data_testnet account list
+
+tree로 확인
+$ tree data_testnet
+
+
+2.4.2 채굴 (miner)
+$ geth --networkid 4649 --nodiscover --maxpeers 0 --datadir /Users/jihwan/data_testnet console 2>> /Users/jihwan/data_testnet/geth.log
+
+채굴에 성공했을때 보상 받는 계정 Etherbase
+defalut는 eth.account[0]
+
+Etherbase 확인
+> eth.coinbase
+
+Etherbase 변경
+> miner.setEtherbase(eth.accounts[1])
+
+Etherbase 확인
+> eth.coinbase
+
+잔고 확인
+> eth.getBalance(eth.accounts[0])
+> eth.getBalance(eth.accounts[1])
+> eth.getBalance(eth.accounts[2])
+
+블록 수
+> eth.blockNumber
+
+채굴, mining  miner.start(thread_num) 채굴할 때 사용할 스레드 수
+> miner.start(1)
+
+> miner.stop()
+> exit
+
+log 파일 확인
+$ tail -f ~/data_testnet/geth.log
+
+DAG(Directed Acyclic Graph) 파일명 확인
+$ tree .ethash/
+
+DAG 파일 확인
+$ ls -lh .ethash/full-R23-0000000000000000
+
+채굴 여부
+> eth.mining
+
+해쉬 속도
+> eth.hashrate
+
+블록 길이
+> eth.blockNumber
+
+잔고 확인
+> eth.getBalance(eth.coinbase)
+
+wei를 ether로 변환
+> web3.fromWei(eth.getBalance(eth.accounts[0]),"ether")
+
