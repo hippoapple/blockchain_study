@@ -1,7 +1,19 @@
+#########################################
 스마트 계약 (smart contract)
+#########################################
+mac버전 10.12.6
 
 solidity 컴파일러 설치
 
 brew tap ethereum/ethereum
 brew install solidity
+
+solc
+solidity 명령어
+
+sloc --version
+solidity version 확인
+
 which solc
+위치 확인
+
