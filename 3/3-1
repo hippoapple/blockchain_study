@@ -17,3 +17,8 @@ solidity version 확인
 which solc
 위치 확인
 
+geth --networkid 4949 --nodiscover --maxpeers 0 --datadir /Users/jihwan/data_testnet --rpc --rpcaddr "0.0.0.0" --rpcport 8545 --rpccorsdomain "*" --rpcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --unlock 0,1 --password /Users/jihwan/data_testnet/passwd --verbosity 6 console 2>> /Users/jihwan/data_testnet/geth.log
+
+
+
+
