@@ -1,0 +1,7 @@
+스마트 계약 (smart contract)
+
+solidity 컴파일러 설치
+
+brew tap ethereum/ethereum
+brew install solidity
+which solc
