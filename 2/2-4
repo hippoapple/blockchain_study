@@ -229,3 +229,32 @@ rpc를 허가할 명령을 지정한다. 쉼표로 구분해 여러 개를 지�
 cmd 창 하나 더
 $ curl -X POST --data '{"jsonrpc":"2.0","method":"personal_newAccount","params":["pass3"],"id":10}' localhost:8545
 
+
+
+###########################################################
+2.4.7 Geth 기동 시 계정 잠금 해제
+###########################################################
+
+접속
+geth --networkid 4949 --nodiscover --maxpeers 0 --datadir /Users/jihwan/data_testnet --rpc --rpcaddr "0.0.0.0" --rpcport 8545 --rpccorsdomain "*" --rpcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --unlock 0 --verbosity 6 console 2>> /Users/jihwan/data_testnet/geth.log
+
+pass0
+입력
+
+--unlock
+잠금 해지할 계정을 지정한다]
+
+--verbosity 6
+로그 출력 수준을 지정한다
+
+echo pass0 > /Users/jihwan/data_testnet/passwd
+cat ~/data_testnet/passwd
+패스워드를 파일에 저장
+
+geth --networkid 4949 --nodiscover --maxpeers 0 --datadir /Users/jihwan/data_testnet --rpc --rpcaddr "0.0.0.0" --rpcport 8545 --rpccorsdomain "*" --rpcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --unlock 0 --password /Users/jihwan/data_testnet/passwd --verbosity 6 console 2>> /Users/jihwan/data_testnet/geth.log
+pass0 입력 없이 접속
+
+echo pass1 >> /Users/jihwan/data_testnet/passwd
+cat ~/data_testnet/passwd
+
+geth --networkid 4949 --nodiscover --maxpeers 0 --datadir /Users/jihwan/data_testnet --rpc --rpcaddr "0.0.0.0" --rpcport 8545 --rpccorsdomain "*" --rpcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --unlock 0,1 --password /Users/jihwan/data_testnet/passwd --verbosity 6 console 2>> /Users/jihwan/data_testnet/geth.log
