@@ -5,20 +5,27 @@ mac버전 10.12.6
 
 solidity 컴파일러 설치
 
-brew tap ethereum/ethereum
-brew install solidity
+$ brew tap ethereum/ethereum
+$ brew install solidity
 
-solc
+$ solc
 solidity 명령어
 
-sloc --version
+$ sloc --version
 solidity version 확인
 
-which solc
+$ which solc
 위치 확인
+/usr/local/bin/solc
 
-geth --networkid 4949 --nodiscover --maxpeers 0 --datadir /Users/jihwan/data_testnet --rpc --rpcaddr "0.0.0.0" --rpcport 8545 --rpccorsdomain "*" --rpcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --unlock 0,1 --password /Users/jihwan/data_testnet/passwd --verbosity 6 console 2>> /Users/jihwan/data_testnet/geth.log
+$ geth --networkid 4949 --nodiscover --maxpeers 0 --datadir /Users/jihwan/data_testnet --rpc --rpcaddr "0.0.0.0" --rpcport 8545 --rpccorsdomain "*" --rpcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --unlock 0,1 --password /Users/jihwan/data_testnet/passwd --verbosity 6 console 2>> /Users/jihwan/data_testnet/geth.log
+접속
 
+geth에 solc 경로를 설정한다.
+> admin.setSolc("/usr/local/bin/solc")
+
+정상적으로 설정되었는지 확인
+> eth.getCompilers()
 
 
 
