@@ -28,4 +28,49 @@ geth에 solc 경로를 설정한다.
 > eth.getCompilers()
 
 
+#########################
+HelloWorldOrg.sol
+#########################
+
+pragma solidity ^0.4.8;   /* 버전 프라그마 */
+
+contract HelloWorld {     /* 계약 선언 */
+        string public greeting; /* 상태 변수 선언 */
+
+        function HelloWorld(string _greeting){  /* 생성자 */
+                greeting = _greeting;
+        }
+        function setGreeting(string _greeting){ /* 메서드 선언 */
+                greeting = _greeting;
+        }
+        function say() contract return(string){ /* 메서드 선언 */
+                retrun greeting;
+        }
+}
+
+#########################
+HelloWorldOrg.sol
+#########################
+
+tr명령어로 줄바꿈을 모두 제거
+$ cat HelloWorldOrg.sol | tr -d '\n' > HelloWorld.sol
+
+$ cat HelloWorld.sol
+
+pragma solidity ^0.4.8;contract HelloWorld {string public greeting;	function HelloWorld(string _greeting){greeting = _greeting;}function setGreeting(string _greeting){greeting = _greeting;}function say() contract return(string){retrun greeting;}}
+
+내용을 복사
+
+접속 후
+
+> source = '복사한 내용'
+
+> source = 'pragma solidity ^0.4.8;contract HelloWorld {string public greeting;function HelloWorld(string _greeting) {greeting = _greeting;}function setGreeting(string _greeting) {greeting = _greeting;}function say() constant returns(string) {retrun greeting;}}'
+
+> source = 'pragma solidity ^0.4.8;contract HelloWorld {string public greeting;function HelloWorld(string _greeting) {greeting = _greeting;}function setGreeting(string _greeting) {greeting = _greeting;}function say() constant returns(string) {retrun greeting;}}'
+
+> sourceCompiled = eth.compile.solidity(source)
+
+
+
 
