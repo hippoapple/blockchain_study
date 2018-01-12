@@ -65,9 +65,7 @@ pragma solidity ^0.4.8;contract HelloWorld {string public greeting;	function Hel
 
 > source = '복사한 내용'
 
-> source = 'pragma solidity ^0.4.8;contract HelloWorld {string public greeting;function HelloWorld(string _greeting) {greeting = _greeting;}function setGreeting(string _greeting) {greeting = _greeting;}function say() constant returns(string) {retrun greeting;}}'
-
-> source = 'pragma solidity ^0.4.8;contract HelloWorld {string public greeting;function HelloWorld(string _greeting) {greeting = _greeting;}function setGreeting(string _greeting) {greeting = _greeting;}function say() constant returns(string) {retrun greeting;}}'
+> source = 'pragma solidity ^0.4.8;contract HelloWorld {    string public greeting;    function HelloWorld(string _greeting){        greeting = _greeting;    }    function setGreeting(string _greeting){        greeting = _greeting;    }    function say() constant returns(string){        return greeting;    }}'
 
 > sourceCompiled = eth.compile.solidity(source)
 
