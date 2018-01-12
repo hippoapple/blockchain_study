@@ -105,7 +105,26 @@ Hello ethereum으로 greeting 변경
 3.2.6 기존 계약에 접근
 ###############################################################
 
+터미널을 하나 추가하여 기존 contract에 접근해보자
 
+접속
+$ geth attach rpc:http://localhost:8545
+
+source 등록
+> source = 'pragma solidity ^0.4.8;contract HelloWorld {    string public greeting;    function HelloWorld(string _greeting){        greeting = _greeting;    }    function setGreeting(string _greeting){        greeting = _greeting;    }    function say() constant returns(string){        return greeting;    }}'
+
+컴파일
+> sourceCompiled = eth.compile.solidity(source)
+
+ABI정보를 가져옴
+> contractAbiDefinition = sourceCompiled['(sourceCompiled의 첫번째 줄에 나온 주소)'].info.abiDefinition
+
+contract 접근
+> contract = eth.contract(contractAbiDefinition).at("(contract의 address)")
+
+contract function 호출
+> contract.say.call()
+"Hello, Ethereum" 출력
 
 
 
