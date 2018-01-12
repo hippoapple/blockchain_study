@@ -38,20 +38,41 @@ pragma solidity ^0.4.8;contract HelloWorld {string public greeting;	function Hel
 
 > source = 'pragma solidity ^0.4.8;contract HelloWorld {    string public greeting;    function HelloWorld(string _greeting){        greeting = _greeting;    }    function setGreeting(string _greeting){        greeting = _greeting;    }    function say() constant returns(string){        return greeting;    }}'
 
+소스를 컴파일
 > sourceCompiled = eth.compile.solidity(source)
 
-
-#########################
-3.2.4 계약 배포
-#########################
-sourceCompiled에서 ABI(application binary Interface)를 취득한다
-계약의 외부 사양을 말한다. contract에 포함되는 메서드와 인수, 반환값에 대한 정보
-
-abi 취득내용
-> contractAbiDefinition = sourceCompiled['/var/folders/qh/sfkvr02571z65xc_84jwg2300000gn/T/geth-compile-solidity905536343:HelloWorld'].info.abiDefinition
+ABI 정보를 얻어옴.
+ABI(Application Binary Interface) 계약의 외부 사양. 메서드와 인수, 반환값에 대한 정보
+> contractAbiDefinition = sourceCompiled['/var/folders/qh/sfkvr02571z65xc_84jwg2300000gn/T/geth-compile-solidity826908631:HelloWorld'].info.abiDefinition
 
 ABI로부터 계약 객체를 만든다
 > sourceCompiledContract = eth.contract(contractAbiDefinition)
+
+contract에 정의된 전달해야할 내용을 생성
+> _greeting = "Hello, World!~"
+
+배포 작업
+> contract = sourceCompiledContract.new(_greeting, {from:eth.accounts[0], data:sourceCompiled['/var/folders/qh/sfkvr02571z65xc_84jwg2300000gn/T/geth-compile-solidity826908631:HelloWorld'].code, gas:'4700000'})
+
+블록체인 대기중인 transactions 확인
+> eth.pendingTransactions
+
+> miner.start(1)
+
+> eth.pendingTransactions
+
+> miner.stop()
+
+> eth.pendingTransactions
+없는 것을 볼 수 있다.
+
+> contract
+address : undefined에서 해쉬 값으로 변경 된 것을 볼 수 있다.
+
+
+###############################################################
+3.2.5 계약 동작시키기
+###############################################################
 
 
 
