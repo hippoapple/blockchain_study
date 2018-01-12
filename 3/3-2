@@ -51,6 +51,9 @@ ABI로부터 계약 객체를 만든다
 contract에 정의된 전달해야할 내용을 생성
 > _greeting = "Hello, World!~"
 
+계좌 unlock
+> personal.unlockAccount(eth.accounts[0], "pass0", 0)
+
 배포 작업
 > contract = sourceCompiledContract.new(_greeting, {from:eth.accounts[0], data:sourceCompiled['/var/folders/qh/sfkvr02571z65xc_84jwg2300000gn/T/geth-compile-solidity826908631:HelloWorld'].code, gas:'4700000'})
 
@@ -73,6 +76,35 @@ address : undefined에서 해쉬 값으로 변경 된 것을 볼 수 있다.
 ###############################################################
 3.2.5 계약 동작시키기
 ###############################################################
+
+이더리움에서 메서드를 실행하는 방법
+sendTransaction : send
+call            : get
+
+> contract.say.call()
+say functions을 호출. contract가 저장하고 있는 문자열이 반환
+
+> contract.greeting.call()
+변수 호출
+
+Hello ethereum으로 greeting 변경
+> contract.setGreeting.sendTransaction("Hello ethereum!", {from:eth.accounts[0], gas:1000000})
+
+> eth.pendingTransactions
+
+> miner.start(1)
+
+> eth.pendingTransactions
+
+> miner.stop()
+
+
+
+
+###############################################################
+3.2.6 기존 계약에 접근
+###############################################################
+
 
 
 
