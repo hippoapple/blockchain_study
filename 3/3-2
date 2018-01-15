@@ -14,7 +14,7 @@ contract HelloWorld {     /* 계약 선언 */
         function setGreeting(string _greeting){ /* 메서드 선언 */
                 greeting = _greeting;
         }
-        function say() contract return(string){ /* 메서드 선언 */
+        function say() constant returns(string){ /* 메서드 선언 */
                 return greeting;
         }
 }
