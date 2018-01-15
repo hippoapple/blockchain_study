@@ -1,0 +1,17 @@
+###########################################
+3.3.6 Browser-Solidity
+###########################################
+
+pragma solidity ^0.4.8;
+
+contract RecvEther {
+    address public sender;      //보내는 주소 확인용 변수
+    uint public recvEther;      //받은 Ether (합계)
+    
+    //송금받기
+    function () payable{        // 확인을 위해 상태 변수를 갱신
+        sender = msg.sender;
+        recvEther += msg.value;
+    }
+}
+
