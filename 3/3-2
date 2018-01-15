@@ -15,7 +15,7 @@ contract HelloWorld {     /* 계약 선언 */
                 greeting = _greeting;
         }
         function say() contract return(string){ /* 메서드 선언 */
-                retrun greeting;
+                return greeting;
         }
 }
 
