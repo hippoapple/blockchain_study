@@ -81,10 +81,9 @@ contract OreOreCoin {
         else {
             balanceOf[msg.sender] -= _value;
             balanceOf[_to] += _value;
+            Transfer(msg.sender, _to, _value);
         }
-        Transfer(msg.sender, _to, _value);
     }
-    
 }
 
 블랙리스트 시나리오
