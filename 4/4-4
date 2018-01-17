@@ -196,7 +196,9 @@ contract OreOreCoin is Owned{
 //0xca35b7d915458ef540ade6068dfe2f44e8fa733c
 //0x14723a09acff6d2a60dcdf7aa4aff308fddc160c
 
-
+"Bronze",0,0,0
+"Silver",5,500,5
+"Gold",15,1500,10
 
 
 
