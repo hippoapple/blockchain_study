@@ -25,8 +25,68 @@ $ cat TransactionLogNG.bin
 $ solc --abi TransactionLogNG.sol
 
 
-4) geth
+4) geth 실행
 $ geth --networkid 4649 --nodiscover --maxpeers 0 --datadir /Users/jihwan/data_testnet console 2>> /Users/jihwan/data_testnet/geth.log
+
+5) 계약 등록자 계정 잠금을 해제한다
+> personal.unlockAccount(eth.accounts[0], "pass0", 0)
+
+6) 계약을 블록체인에 등록한다.
+> tranNgContract = web3.eth.contract([{"constant":true,"inputs":[{"name":"","type":"bytes32"},{"name":"","type":"bytes32"}],"name":"tranlog","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"user_id","type":"bytes32"},{"name":"project_id","type":"bytes32"},{"name":"tran_data","type":"string"}],"name":"setTransaction","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"user_id","type":"bytes32"},{"name":"project_id","type":"bytes32"}],"name":"getTransaction","outputs":[{"name":"tran_data","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}])
+
+> tranNg = tranNgContract.new({from: eth.accounts[0], data:'0x6060604052341561000f57600080fd5b6103eb8061001e6000396000f3006060604052600436106100565763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663793e4cb6811461005b5780638613eebb146100eb578063a6ba5def14610149575b600080fd5b341561006657600080fd5b610074600435602435610162565b60405160208082528190810183818151815260200191508051906020019080838360005b838110156100b0578082015183820152602001610098565b50505050905090810190601f1680156100dd5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b34156100f657600080fd5b610147600480359060248035919060649060443590810190830135806020601f8201819004810201604051908101604052818152929190602084018383808284375094965061021f95505050505050565b005b341561015457600080fd5b61007460043560243561024d565b6000602052816000526040600020602052806000526040600020600091509150508054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102175780601f106101ec57610100808354040283529160200191610217565b820191906000526020600020905b8154815290600101906020018083116101fa57829003601f168201915b505050505081565b6000838152602081815260408083208584529091529020818051610247929160200190610312565b50505050565b610255610390565b600083815260208181526040808320858452825291829020805490926002610100600184161502600019019092169190910491601f8301819004810201905190810160405280929190818152602001828054600181600116156101000203166002900480156103055780601f106102da57610100808354040283529160200191610305565b820191906000526020600020905b8154815290600101906020018083116102e857829003601f168201915b5050505050905092915050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061035357805160ff1916838001178555610380565b82800160010185558215610380579182015b82811115610380578251825591602001919060010190610365565b5061038c9291506103a2565b5090565b60206040519081016040526000815290565b6103bc91905b8082111561038c57600081556001016103a8565b905600a165627a7a723058204f67dd67d78ab66766ea5dd4fec856c05c71aa3f563449c22ae706026af2f6210029', gas:3000000}, function(e, contract){console.log(e, contract); if (typeof contract.address != 'undefined') {console.log('Contract mined! address : ' + contract.address + 'transactionHash : ' + contract.transactionHash); }}) 
+
+7) 채굴을 시작한다.
+> miner.start(1)
+
+8) 계약이 블록체인에 등록됐는지 확인한다.
+console.log로 만든 log가 출력된다.
+
+9) 계약에 접근하기 위한 변수를 정의한다.
+> contractObj = eth.contract(tranNg.abi).at(tranNg.address)
+
+10) 블록체인의 TransactionLog 계약에 거래 내용을 등록한다.
+> contractObj.setTransaction.sendTransaction("USER000001","PROJ00000001","2017년 9월 25일 A가 B에게 10,000원 송금", {from:eth.accounts[0]})
+
+결과
+"0x471c49fcb36c20a07078addc39e5148a3b688fa0723d689329bb93f8b6aa6651"
+
+11) 10의 트랜잭션 실행 여부를 확인한다.
+> eth.getTransaction("0x471c49fcb36c20a07078addc39e5148a3b688fa0723d689329bb93f8b6aa6651")
+
+12) 정상적으로 등록됐는지 확인해본다
+> contractObj.getTransaction.call("USER000001","PROJ00000001",{from:eth.accounts[0]})
+
+13) 등록한 내용을 변경해본다.
+> contractObj.setTransaction.sendTransaction("USER000001","PROJ00000001","aaa",{from:eth.accounts[0]})
+
+
+========================================
+TransactionLogOK.sol
+========================================
+
+pragma solidity ^0.4.8;
+
+contract TransactionLogOK {
+    
+    mapping (bytes32 => mapping (bytes32 => string)) public tranlog;
+    
+    function setTransaction(bytes32 user_id, bytes32 project_id, string tran_data) public {
+        
+        if(bytes(tranlog[user_id][project_id]).length != 0 ){
+            throw;
+        }
+        
+        tranlog[user_id][project_id] = tran_data;
+    }
+    
+    function getTransaction(bytes32 user_id, bytes32 project_id) public constant returns (string tran_data) {
+        return tranlog[user_id][project_id];
+    }
+}
+
+
+
 
 
 
