@@ -86,8 +86,21 @@ contract TransactionLogOK {
 }
 
 
+2) 계약 프로그램 빌드용 Data를 출력한다
+$ solc -o ./ --bin --optimize TransactionLogOK.sol
+$ cat TransactionLogOK.bin
 
+3) 계약 정보를 가져온다
+$ solc --abi TransactionLogOK.sol
 
+4) Geth를 시작한다
+$ geth --networkid 4649 --nodiscover --maxpeers 0 --datadir /Users/jihwan/data_testnet console 2>> /Users/jihwan/data_testnet/geth.log
+
+5) 계약 등록자 계정 잠금을 해제한다.
+> personal.unlockAccount(eth.accounts[0], "pass0", 0)
+
+6) 계약을 블록체인에 등록한다.
+> tranOkContract = web3.eth.contract([{"constant":true,"inputs":[{"name":"","type":"bytes32"},{"name":"","type":"bytes32"}],"name":"tranlog","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"user_id","type":"bytes32"},{"name":"project_id","type":"bytes32"},{"name":"tran_data","type":"string"}],"name":"setTransaction","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"user_id","type":"bytes32"},{"name":"project_id","type":"bytes32"}],"name":"getTransaction","outputs":[{"name":"tran_data","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}]);
 
 
 
