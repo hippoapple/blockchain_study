@@ -25,6 +25,10 @@ $ cat TransactionLogNG.bin
 $ solc --abi TransactionLogNG.sol
 
 
+4) geth
+$ geth --networkid 4649 --nodiscover --maxpeers 0 --datadir /Users/jihwan/data_testnet console 2>> /Users/jihwan/data_testnet/geth.log
+
+
 
 
 
