@@ -227,7 +227,7 @@ http-rpc 서버가 요청을 받기 위해 사용하는 포트를 지정
 rpc를 허가할 명령을 지정한다. 쉼표로 구분해 여러 개를 지정할 수 있다.
 
 cmd 창 하나 더
-$ curl -X POST --data '{"jsonrpc":"2.0","method":"personal_newAccount","params":["pass3"],"id":10}' localhost:8545
+$ curl -X POST --data '{"jsonrpc":"2.0","method":"personal_listAccounts","params":[],"id":10}' localhost:8545
 
 
 
